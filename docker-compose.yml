@@ -1,0 +1,87 @@
+version: '3.6'
+services:
+  bamboo:
+    image: stellarity/atlassian-sdk
+    ports:
+      - "6990:6990"
+    volumes:
+      - ~/.m2:/root/.m2
+      - ./bamboo:/opt/bamboo      
+      - ./plugin:/opt/plugin
+      - ./bootstrap/bootstrap.sh:/bootstrap.sh
+    command: /bootstrap.sh
+    stdin_open: true
+    environment:
+      - BAMBOO_VERSION=${BAMBOO_VERSION-6.4.0}
+    networks:
+      mynet:
+        aliases:
+          - bamboo
+  webtest:
+    image: stellarity/webtest
+    volumes:
+      - ~/.m2:/root/.m2
+      - ~/.gradle/caches/modules-2:/root/.gradle/caches/modules-2
+      - ~/.gradle/wrapper:/root/.gradle/wrapper
+      - ./bamboo:/opt/bamboo
+      - ./ftp:/opt/ftp
+      - ./test:/opt/test
+    command: bash -c "cd test && ./gradlew chromeHeadlessTest --info"
+    environment:
+      - BAMBOO_HOME=/opt/bamboo/home
+      - BAMBOO_URL=http://bamboo:6990
+      - FTP_HOME=/opt/ftp
+      - FTP_ULR=ftp://ftp
+      - FTPS_ULR=ftps://ftps
+      - FTPES_ULR=ftpes://ftpes
+    networks:
+      mynet:
+        aliases:
+          - webtest
+  ftp:
+    image: stellarity/vsftpd
+    volumes:
+      - ./ftp:/var/ftp/pub
+    ports:
+      - "21:21"
+      - "21001:21001"
+    environment:
+      - MODE=FTP
+      - PASV_ADDRESS=ftp
+      - PASV_PORT=21001
+    networks:
+      mynet:
+        aliases:
+          - ftp
+  ftps:
+    image: stellarity/vsftpd
+    volumes:
+      - ./ftp:/var/ftp/pub
+    ports:
+      - "990:990"
+      - "21002:21002"
+    environment:
+      - MODE=FTPS
+      - PASV_ADDRESS=ftps
+      - PASV_PORT=21002
+    networks:
+      mynet:
+        aliases:
+          - ftps
+  ftpes:
+    image: stellarity/vsftpd
+    volumes:
+      - ./ftp:/var/ftp/pub
+    ports:
+      - "9021:21"
+      - "21003:21003"
+    environment:
+      - MODE=FTPES
+      - PASV_ADDRESS=ftpes
+      - PASV_PORT=21003
+    networks:
+      mynet:
+        aliases:
+          - ftpes
+networks:
+  mynet:
