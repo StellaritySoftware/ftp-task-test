@@ -1,20 +1,17 @@
 apply plugin: "groovy"
 
-ext {
-    // The drivers we want to use
-    drivers = ["chrome", "chromeHeadless"]
-}
-
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    def groovyVersion = "2.4.12"
+    def groovyVersion = "2.4.15"
     def gebVersion = "2.1"
     def seleniumVersion = "3.6.0"
 
     testCompile "org.codehaus.groovy:groovy-all:$groovyVersion"
+
+    // If using Spock, need to depend on geb-spock
     testCompile "org.gebish:geb-spock:$gebVersion"
     testCompile("org.spockframework:spock-core:1.1-groovy-2.4") {
         exclude group: "org.codehaus.groovy"
@@ -22,24 +19,49 @@ dependencies {
 
     // Need a driver implementation
     testCompile "org.seleniumhq.selenium:selenium-chrome-driver:$seleniumVersion"
+    testRuntime "org.seleniumhq.selenium:selenium-support:$seleniumVersion"
+
+    // https://mvnrepository.com/artifact/org.apache.commons/commons-text
+    testCompile "org.apache.commons:commons-text:1.1"
 }
 
-drivers.each { driver -> task "${driver}Test"(type: Test) {
-        group JavaBasePlugin.VERIFICATION_GROUP
-
-        outputs.upToDateWhen { false }  // Always run tests
-
-        systemProperty "geb.build.reportsDir", reporting.file("geb/$name")
-        systemProperty "geb.env", driver
-    }
-}
 
 test {
-    enabled = false
+
+    systemProperty("user", (System.getProperty("user") != null ? System.getProperty("user") : "admin"))
+    systemProperty("password", (System.getProperty("password") != null ? System.getProperty("password") : "admin"))
+
+    //enabled = false
+    filter{
+//      includeTestsMatching "Test"
+//      includeTestsMatching "FtpDownloadEditPasswordTest"
+//      includeTestsMatching "FtpCleanBeforeUploadTest"
+//      includeTestsMatching "FtpDownloadIncludeExcludePatternsTest"
+//      includeTestsMatching "FtpDownloadSubdirectoryTest"
+//      includeTestsMatching "FtpUploadIncludeExcludeTest"
+        includeTestsMatching "FtpUploadTest"
+//      includeTestsMatching "FtpDownloadTest"
+    }
+//      exclude '**/FtpCleanBeforeUploadTest.class'
+//      exclude '**/FtpDownloadEditTest.class'
+//      exclude '**/FtpDownloadEditPasswordTest.class'
+    systemProperties "geb.build.reportsDir": "$reportsDir/geb"
 }
+
 
 tasks.withType(Test) {
     testLogging {
         exceptionFormat = 'full'
     }
+}
+
+task license {
+    def p = ['curl',
+             '-X', 'PUT', '-H', "Content-Type: application/vnd.atl.plugins+json",  '-d',
+             "{\"rawLicense\":\"AAABCA0ODAoPeNpdj01PwkAURffzKyZxZ1IyUzARkllQ24gRaQMtGnaP8VEmtjPNfFT59yJVFyzfubkn796Ux0Bz6SmbUM5nbDzj97RISxozHpMUnbSq88poUaLztFEStUN6MJZ2TaiVpu/YY2M6tI6sQrtHmx8qd74EZ+TBIvyUU/AoYs7jiE0jzknWQxMuifA2IBlUbnQ7AulVjwN9AaU9atASs69O2dNFU4wXJLc1aOUGw9w34JwCTTZoe7RPqUgep2X0Vm0n0fNut4gSxl/Jcnj9nFb6Q5tP/Ueu3L+0PHW4ghZFmm2zZV5k6/95CbR7Y9bYGo/zGrV3Ir4jRbDyCA6vt34DO8p3SDAsAhQnJjLD5k9Fr3uaIzkXKf83o5vDdQIUe4XequNCC3D+9ht9ZYhNZFKmnhc=X02dh\"}",
+             '-u', 'admin:admin', "${System.env.BAMBOO_URL}/bamboo/rest/plugins/1.0/com.stellarity.bamboo.ftp-task-key/license"].execute()
+
+    println p.waitFor()
+    println p.err.text
+    println p.text
 }

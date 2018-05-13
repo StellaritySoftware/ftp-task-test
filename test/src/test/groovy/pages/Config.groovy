@@ -9,16 +9,16 @@ import java.nio.file.Paths
 class Config {
     static user = System.getProperty('user')
     static password = System.getProperty('password')
-    static context = ""
+    static context = "/bamboo"
     static String projKey
     static String planKey
     static String projName
     static String planName
-    static String bambooHome = "${System.getProperty('bambooHome')}"
-    static String ftpUrlDownload = "${System.getProperty('url')}//downloadDir"
-    static String ftpUrlUpload = "${System.getProperty('url')}//uploadDir"
-    static String ftpUser = "one"
-    static String ftpPassword = "one"
+    static String bambooHome = "${System.env.BAMBOO_HOME}"
+    static String ftpUrlDownload = "${System.env.FTP_URL}//downloadDir"
+    static String ftpUrlUpload = "${System.env.FTP_URL}//uploadDir"
+    static String ftpUser = "user1"
+    static String ftpPassword = "pass1"
     static String ftpInvalidPassword = "katya"
     static String subdirectory = "ftpFolder"
     static URI ftpSample = getClass().getResource('/ftpSample').toURI()

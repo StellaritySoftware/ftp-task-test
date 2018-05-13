@@ -1,26 +1,33 @@
 import org.openqa.selenium.chrome.ChromeDriver
 import org.openqa.selenium.chrome.ChromeOptions
 
-waiting {
-	timeout = 2
-}
 
-environments {	
-	// run via “./gradlew chromeTest”
+atCheckWaiting = true
+
+waiting
+		{
+			timeout = 30
+			retryInterval = 0.5
+		}
+
+environments {
 	chrome {
-		driver = { 
-            new ChromeDriver() 
-        }
-	}
-
-	// run via “./gradlew chromeHeadlessTest”
-	chromeHeadless {
 		driver = {
 			ChromeOptions o = new ChromeOptions()
-			o.addArguments("headless", "no-sandbox", "window-size=1920,1080")
+			o.addArguments("start-fullscreen")
 			new ChromeDriver(o)
 		}
 	}
+	chromeHeadless {
+		driver = {
+			ChromeOptions o = new ChromeOptions()
+			o.addArguments("headless", "window-size=1920,1080")
+			new ChromeDriver(o)
+
+		}
+	}
 }
+
+reportOnTestFailureOnly = true
 
 baseUrl = "${System.env.BAMBOO_URL}"
