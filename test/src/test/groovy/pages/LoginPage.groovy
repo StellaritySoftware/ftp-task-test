@@ -2,9 +2,12 @@ package pages
 
 import geb.Page
 
+
+
 class LoginPage extends Page
 {
-    static url = "/bamboo/userlogin!doDefault.action"
+    //static url = "/bamboo/userlogin!doDefault.action"
+    static url = Config.context + "/userlogin!doDefault.action"
     static at = { $("#content h1").text() == "Log in" }
 
     static content =
@@ -14,10 +17,11 @@ class LoginPage extends Page
         loginButton(to: DashboardPage) { $("#loginForm_save") }
     }
 
-    def login(username, password)
+    def DashboardPage login(username, password)
     {
         this.username = username
         this.password = password
-        loginButton.click()
+        this.loginButton.click()
+        browser.at DashboardPage
     }
 }

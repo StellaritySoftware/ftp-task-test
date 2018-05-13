@@ -9,5 +9,14 @@ class DashboardPage extends Page
 
     static content =
     {
+        buttonCreate { $(" #createPlanLink") }
+        createPlan(to: CreateNewPlanConfigurePlanPage) { $("#createNewPlan") }
+    }
+
+    def CreateNewPlanConfigurePlanPage createNewPlan()
+    {
+        buttonCreate.click()
+        createPlan.click()
+        browser.at CreateNewPlanConfigurePlanPage
     }
 }
