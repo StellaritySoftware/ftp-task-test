@@ -40,5 +40,12 @@ class FTPDownloadConfigurationPage extends Page{
 
     def uncollapseAdvancedOptions(){
         js."document.querySelector('form#updateTask div span.icon.icon-expand').click()"
+        waitFor{advancedOptionsRetryCount.isDisplayed()}
+    }
+
+    def changePassword(){
+        js.exec("scroll(0, 250)")
+        changePassword.click()
+        waitFor {passwordFtp.isDisplayed()}
     }
 }

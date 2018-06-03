@@ -14,14 +14,14 @@ environments {
 	chrome {
 		driver = {
 			ChromeOptions o = new ChromeOptions()
-			o.addArguments("start-fullscreen")
+			o.addArguments("window-size=1920,1080")
 			new ChromeDriver(o)
 		}
 	}
 	chromeHeadless {
 		driver = {
 			ChromeOptions o = new ChromeOptions()
-			o.addArguments("headless", "window-size=1920,1080")
+			o.addArguments("headless", "no-sandbox", "window-size=1920,1080")
 			new ChromeDriver(o)
 
 		}

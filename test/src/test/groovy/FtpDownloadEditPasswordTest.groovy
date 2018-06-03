@@ -1,4 +1,3 @@
-import geb.module.FormElement
 import geb.spock.GebReportingSpec
 import helpers.DirectoryComparator
 import pages.Config
@@ -48,8 +47,7 @@ class FtpDownloadEditPasswordTest extends GebReportingSpec
         planBuild.clickDefaultJobLink()
         configureTasksPage.selectFTPDownloadtask()
 
-        ftpDownloadConfiguration.changePassword.click()
-        waitFor {ftpDownloadConfiguration.passwordFtp.module(FormElement).enabled}
+        ftpDownloadConfiguration.changePassword()
         ftpDownloadConfiguration.passwordFtp = Config.ftpPassword
 
         ftpDownloadConfiguration.clickSave()

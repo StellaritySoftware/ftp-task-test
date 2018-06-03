@@ -25,26 +25,33 @@ dependencies {
     testCompile "org.apache.commons:commons-text:1.1"
 }
 
+task copyResources(type: Copy) {
+    from "src/test/resources/ftpSample"
+    into "${System.env.FTP_HOME}/downloadDir"
+    fileMode 0666
+    dirMode 0777
+}
 
-test {
+test{
+
+    dependsOn copyResources
 
     systemProperty("user", (System.getProperty("user") != null ? System.getProperty("user") : "admin"))
     systemProperty("password", (System.getProperty("password") != null ? System.getProperty("password") : "admin"))
+    systemProperty("geb.env", System.getProperty("geb.env"))
 
-    //enabled = false
-    filter{
+//    filter{
 //      includeTestsMatching "Test"
 //      includeTestsMatching "FtpDownloadEditPasswordTest"
 //      includeTestsMatching "FtpCleanBeforeUploadTest"
 //      includeTestsMatching "FtpDownloadIncludeExcludePatternsTest"
 //      includeTestsMatching "FtpDownloadSubdirectoryTest"
 //      includeTestsMatching "FtpUploadIncludeExcludeTest"
-        includeTestsMatching "FtpUploadTest"
+//      includeTestsMatching "FtpUploadTest"
 //      includeTestsMatching "FtpDownloadTest"
-    }
-//      exclude '**/FtpCleanBeforeUploadTest.class'
-//      exclude '**/FtpDownloadEditTest.class'
-//      exclude '**/FtpDownloadEditPasswordTest.class'
+//        includeTestsMatching "FtpDownloadEditTest"
+//    }
+
     systemProperties "geb.build.reportsDir": "$reportsDir/geb"
 }
 

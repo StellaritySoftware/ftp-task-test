@@ -14,7 +14,7 @@ class CreateNewPlanConfigureTasksPage extends Page
         enablePlanCheckBox(required: false){$("input#finalisePlanCreation_chainEnabled", type:"checkbox")}
         buttonCreate(required: false){$("#finalisePlanCreation_save")}
         buttonCreatePlan{$("#createPlan")} // Bamboo version 6.4.0
-        editTaskLink {$(By.cssSelector("a[href='/build/admin/edit/editTask.action?planKey=${Config.projKey}-${Config.planKey}-JOB1&taskId=1']"))}
+        editTaskLink {$(By.cssSelector("a[href='/bamboo/build/admin/edit/editTask.action?planKey=${Config.projKey}-${Config.planKey}-JOB1&taskId=1']"))}
     }
 
     def TaskTypesPage addTask(){

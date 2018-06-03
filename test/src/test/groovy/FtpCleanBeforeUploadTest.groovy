@@ -52,6 +52,8 @@ class FtpCleanBeforeUploadTest extends GebReportingSpec
         ftpDownloadConfiguration.subdirectory << Config.subdirectory
         ftpDownloadConfiguration.clickSave()
 
+        configureTasksPage.enablePlanCheckBox = true
+
         def createdPlan = configureTasksPage.clickCreateButton()
         def planBuild = createdPlan.runManualBuild()
 

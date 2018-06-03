@@ -62,6 +62,7 @@ class CreateNewPlanConfigurePlanPage extends Page
 
         // for Bamboo 6.4 version
         if (noneRepositoryOption.isDisplayed()){
+            js.exec("scroll(0, 250)")
             noneRepositoryOption.click()
             return
         }
