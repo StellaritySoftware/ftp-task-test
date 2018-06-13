@@ -26,6 +26,8 @@ class FTPDownloadConfigurationPage extends Page{
         advancedOptionCollapse{$("form#updateTask div span.icon.icon-expand")}
         advancedOptionsRetryCount{$("input#ftpTaskRetryCount")}
         advancedOptionsRetryDelay{$("input#ftpTaskRetryDelay")}
+        useSharedCredentials{$("input#ftpTaskUseSharedCredentials.handleOnSelectShowHide.checkbox")}
+        dropDownCredentials{$("select#ftpTaskSharedCredentials")}
     }
 
     def clickSave(){
@@ -47,5 +49,11 @@ class FTPDownloadConfigurationPage extends Page{
         js.exec("scroll(0, 250)")
         changePassword.click()
         waitFor {passwordFtp.isDisplayed()}
+    }
+
+    def chooseUseSharedCredentials(){
+        js.exec("scroll(0, 250)")
+        useSharedCredentials = true
+        waitFor {dropDownCredentials.isDisplayed()}
     }
 }

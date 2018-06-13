@@ -40,7 +40,7 @@ test{
     systemProperty("password", (System.getProperty("password") != null ? System.getProperty("password") : "admin"))
     systemProperty("geb.env", System.getProperty("geb.env"))
 
-//    filter{
+    filter{
 //      includeTestsMatching "Test"
 //      includeTestsMatching "FtpDownloadEditPasswordTest"
 //      includeTestsMatching "FtpCleanBeforeUploadTest"
@@ -49,8 +49,9 @@ test{
 //      includeTestsMatching "FtpUploadIncludeExcludeTest"
 //      includeTestsMatching "FtpUploadTest"
 //      includeTestsMatching "FtpDownloadTest"
+        includeTestsMatching "FtpDownloadTestSharedCredentials"
 //        includeTestsMatching "FtpDownloadEditTest"
-//    }
+    }
 
     systemProperties "geb.build.reportsDir": "$reportsDir/geb"
 }
@@ -72,3 +73,16 @@ task license {
     println p.err.text
     println p.text
 }
+
+
+task dismissNotification {
+    def p = ['curl',
+             '-X', 'POST', '-H', "Content-Type: application/json", '-d',
+             "{\"username\":\"admin\",\"notificationId\":\"1\",\"snooze\":false}",
+             '-u', 'admin:admin', "${System.env.BAMBOO_URL}/bamboo/rest/troubleshooting/1.0/dismissNotification"].execute()
+
+    println p.waitFor()
+    println p.err.text
+    println p.text
+}
+
