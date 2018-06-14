@@ -25,9 +25,6 @@ class SharedCredentialsPage extends Page
         waitFor {addNewCredentialButton.isDisplayed()}
         addNewCredentialButton.click()
         usernameAndPassword.click()
-    }
-
-    def waitForCredentialFieldsAreDisplayed(){
         waitFor {credentialsNameField.isDisplayed()}
     }
 
@@ -43,6 +40,6 @@ class SharedCredentialsPage extends Page
 
     def generateRandomCredentials(){
         Random r = new Random()
-        credentialName = "positive_${Math.abs(r.nextInt() - Integer.parseInt("2147483647"))}"
+        return credentialName = "positive_${Math.abs(r.nextInt() - Integer.parseInt("2147483647"))}"
     }
 }

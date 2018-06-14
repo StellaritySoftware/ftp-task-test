@@ -19,15 +19,14 @@ class FtpDownloadTestSharedCredentials extends GebReportingSpec
 
         def sharedCredentials = userManagement.clickOnSharedCredentialLink()
         sharedCredentials.clickOnDropdown()
-        sharedCredentials.waitForCredentialFieldsAreDisplayed() //вынести
-        sharedCredentials.generateRandomCredentials()
-        sharedCredentials.credentialsNameField << sharedCredentials.credentialName // вынести переменные в тест
+        def credentialName = sharedCredentials.generateRandomCredentials()
+        sharedCredentials.credentialsNameField << credentialName
         sharedCredentials.username << Config.ftpUser
         sharedCredentials.password << Config.ftpPassword
         sharedCredentials.saveCredentials()
 
         then:
-        sharedCredentials.checkCreadentialsSaved(sharedCredentials.credentialName)
+        sharedCredentials.checkCreadentialsSaved(credentialName)
 
         when:
         def createNewPlanConfigurePlanPage = dashboardPage.createNewPlan()
@@ -41,7 +40,6 @@ class FtpDownloadTestSharedCredentials extends GebReportingSpec
         def ftpDownloadConfiguration = tasks.selectFtpDownload()
         ftpDownloadConfiguration.ftpServerUrl << Config.ftpUrlDownload
         ftpDownloadConfiguration.chooseUseSharedCredentials()
-        ftpDownloadConfiguration.dropDownCredentials.click() // без клика будет лти работать?
         ftpDownloadConfiguration.dropDownCredentials = sharedCredentials.credentialName
         ftpDownloadConfiguration.clickSave()
         // Edit
