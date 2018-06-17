@@ -27,6 +27,8 @@ class FTPUploadConfigurationPage extends Page{
         advancedOptionsRetryCount{$("input#ftpTaskRetryCount")}
         advancedOptionsRetryDelay{$("input#ftpTaskRetryDelay")}
         cleanUpRemoteDirectoryBeforeUpload{$("#ftpTaskCleanup")}
+        useSharedCredentials{$("input#ftpTaskUseSharedCredentials.handleOnSelectShowHide.checkbox")}
+        dropDownCredentials{$("select#ftpTaskSharedCredentials")}
     }
 
     def clickSave(){
@@ -41,5 +43,11 @@ class FTPUploadConfigurationPage extends Page{
 
     def uncollapseAdvancedOptions(){
         js."document.querySelector('form#updateTask div span.icon.icon-expand').click()"
+    }
+
+    def chooseUseSharedCredentials(){
+        js.exec("scroll(0, 250)")
+        useSharedCredentials = true
+        waitFor {dropDownCredentials.isDisplayed()}
     }
 }

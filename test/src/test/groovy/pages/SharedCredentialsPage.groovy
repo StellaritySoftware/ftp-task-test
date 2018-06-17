@@ -16,10 +16,9 @@ class SharedCredentialsPage extends Page
         username{$("#username")}
         password{$("#password")}
         saveCredentialButton(required:false){$("#createSharedCredentials_save")}
-        tableCells{$(By.xpath("/html//section[@id='content']//section[@class='aui-page-panel-content']//table[@class='aui']/tbody/tr/td[1]"))} //remove 1st cell
+        tableCells{$(By.xpath("/html//section[@id='content']//section[@class='aui-page-panel-content']//table[@class='aui']/tbody//tr//td"))}
+        //table{$(By.xpath("/html//section[@id='content']//section[@class='aui-page-panel-content']//table[@class='aui']/tbody"))}
     }
-
-    def credentialName = null
 
     def clickOnDropdown(){
         waitFor {addNewCredentialButton.isDisplayed()}
@@ -34,12 +33,11 @@ class SharedCredentialsPage extends Page
 
     def checkCreadentialsSaved(String credentials){
         waitFor {!saveCredentialButton.displayed}
-        def size = tableCells.size()
-        tableCells[size-1].text().trim() == credentials
+        return tableCells.toList().stream().anyMatch({td -> td.text().equals(credentials)})
     }
 
     def generateRandomCredentials(){
         Random r = new Random()
-        return credentialName = "positive_${Math.abs(r.nextInt() - Integer.parseInt("2147483647"))}"
+        return "positive_${Math.abs(r.nextInt())}"
     }
 }

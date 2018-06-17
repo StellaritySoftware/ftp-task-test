@@ -19,6 +19,7 @@ class Config {
     static String ftpUrlUpload = "${System.env.FTP_URL}/pub/uploadDir"
     static String ftpUser = "user1"
     static String ftpPassword = "pass1"
+    static String ftpInvalidUser = "katya"
     static String ftpInvalidPassword = "katya"
     static String subdirectory = "ftpFolder"
     static URI ftpSample = getClass().getResource('/ftpSample').toURI()

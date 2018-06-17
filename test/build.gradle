@@ -49,7 +49,10 @@ test{
 //      includeTestsMatching "FtpUploadIncludeExcludeTest"
 //      includeTestsMatching "FtpUploadTest"
 //      includeTestsMatching "FtpDownloadTest"
-        includeTestsMatching "FtpDownloadTestSharedCredentials"
+//        includeTestsMatching "FtpDownloadTestSharedCredentials"
+        includeTestsMatching "FtpDownloadTestInvalidSharedCredentials"
+        includeTestsMatching "FtpUploadTestSharedCredentials"
+        includeTestsMatching "FtpUploadTestInvalidSharedCredentials"
 //        includeTestsMatching "FtpDownloadEditTest"
     }
 
