@@ -40,7 +40,7 @@ class FtpDownloadTestSharedCredentials extends GebReportingSpec
         def ftpDownloadConfiguration = tasks.selectFtpDownload()
         ftpDownloadConfiguration.ftpServerUrl << Config.ftpUrlDownload
         ftpDownloadConfiguration.chooseUseSharedCredentials()
-        ftpDownloadConfiguration.dropDownCredentials = sharedCredentials.credentialName
+        ftpDownloadConfiguration.dropDownCredentials = credentialName
         ftpDownloadConfiguration.clickSave()
         // Edit
         configureTasksPage.enablePlanCheckBox = true

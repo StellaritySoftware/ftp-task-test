@@ -5,7 +5,7 @@ import geb.Page
 class UserManagementPage extends Page
 {
     static url = "/bamboo/admin/user/viewUsers.action"
-    static at = { $("section.aui-page-panel-content h1").text() == "User management" }
+    static at = { $("section.aui-page-panel-content h1").text() == "User management" || $("section.aui-page-panel-content h1").text() == "Users"}
 
     static content =
     {
