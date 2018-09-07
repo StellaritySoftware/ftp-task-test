@@ -8,8 +8,8 @@ services:
       - ~/.m2:/root/.m2
       - ./bamboo:/opt/bamboo      
       - ./plugin:/opt/plugin
-      - ./bootstrap/bootstrap.sh:/bootstrap.sh
-    command: /bootstrap.sh
+      - ./bootstrap:/bootstrap
+    command: /bootstrap/bamboo.sh
     stdin_open: true
     environment:
       - BAMBOO_VERSION=${BAMBOO_VERSION-6.4.0}
@@ -24,9 +24,10 @@ services:
       - ~/.gradle/caches/modules-2:/root/.gradle/caches/modules-2
       - ~/.gradle/wrapper:/root/.gradle/wrapper
       - ./bamboo:/opt/bamboo
+      - ./bootstrap:/bootstrap      
       - ./ftp:/opt/ftp
       - ./test:/opt/test
-    command: bash -c "cd test && ./gradlew chromeHeadlessTest --info"
+    command: /bootstrap/webtest.sh
     environment:
       - BAMBOO_HOME=/opt/bamboo/home
       - BAMBOO_URL=http://bamboo:6990
