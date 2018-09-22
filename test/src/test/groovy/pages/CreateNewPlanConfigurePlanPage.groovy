@@ -7,7 +7,7 @@ import org.openqa.selenium.Keys
 class CreateNewPlanConfigurePlanPage extends Page
 {
     static url = "/bamboo/build/admin/create/newPlan.action"
-    static at = { $("#content header h1").text() == "Create plan" && $("#content h2").text() == "Configure plan"}
+    static at = { $("#content header h1").text().matches("Create(.*)plan") && $("#content h2").text() == "Configure plan"}
 
     static content =
     {
@@ -43,7 +43,7 @@ class CreateNewPlanConfigurePlanPage extends Page
         {
             existingProjectKey = "newProject"
         }
-
+        waitFor {projectName.isDisplayed()}
         projectName = generator.generate(8)
         chainName = generator.generate(8)
 

@@ -40,21 +40,21 @@ test{
     systemProperty("password", (System.getProperty("password") != null ? System.getProperty("password") : "admin"))
     systemProperty("geb.env", System.getProperty("geb.env"))
 
-    filter{
-//      includeTestsMatching "Test"
-//      includeTestsMatching "FtpDownloadEditPasswordTest"
-//      includeTestsMatching "FtpCleanBeforeUploadTest"
-//      includeTestsMatching "FtpDownloadIncludeExcludePatternsTest"
-//      includeTestsMatching "FtpDownloadSubdirectoryTest"
-//      includeTestsMatching "FtpUploadIncludeExcludeTest"
-//      includeTestsMatching "FtpUploadTest"
-//      includeTestsMatching "FtpDownloadTest"
+//    filter{
+//        includeTestsMatching "Test"
+//        includeTestsMatching "FtpDownloadEditPasswordTest"
+////      includeTestsMatching "FtpCleanBeforeUploadTest"
+////      includeTestsMatching "FtpDownloadIncludeExcludePatternsTest"
+////      includeTestsMatching "FtpDownloadSubdirectoryTest"
+////      includeTestsMatching "FtpUploadIncludeExcludeTest"
+//        includeTestsMatching "FtpUploadTest"
+////      includeTestsMatching "FtpDownloadTest"
 //        includeTestsMatching "FtpDownloadTestSharedCredentials"
-        includeTestsMatching "FtpDownloadTestInvalidSharedCredentials"
-        includeTestsMatching "FtpUploadTestSharedCredentials"
-        includeTestsMatching "FtpUploadTestInvalidSharedCredentials"
-//        includeTestsMatching "FtpDownloadEditTest"
-    }
+//        includeTestsMatching "FtpDownloadTestInvalidSharedCredentials"
+//        includeTestsMatching "FtpUploadTestSharedCredentials"
+//        includeTestsMatching "FtpUploadTestInvalidSharedCredentials"
+////      includeTestsMatching "FtpDownloadEditTest"
+//    }
 
     systemProperties "geb.build.reportsDir": "$reportsDir/geb"
 }
@@ -79,13 +79,25 @@ task license {
 
 
 task dismissNotification {
-    def p = ['curl',
+    def a = ['curl',
              '-X', 'POST', '-H', "Content-Type: application/json", '-d',
              "{\"username\":\"admin\",\"notificationId\":\"1\",\"snooze\":false}",
              '-u', 'admin:admin', "${System.env.BAMBOO_URL}/bamboo/rest/troubleshooting/1.0/dismissNotification"].execute()
 
-    println p.waitFor()
-    println p.err.text
-    println p.text
+
+    println a.waitFor()
+    println a.err.text
+    println a.text
+
+
+    def b = ['curl',
+             '-X', 'POST', '-H', "Content-Type: application/json", '-d',
+             "{\"username\":\"admin\",\"notificationId\":\"1\",\"snooze\":false}",
+             '-u', 'admin:admin', "${System.env.BAMBOO_URL}/bamboo/rest/supportHealthCheck/1.0/dismissNotification"].execute()
+
+
+    println b.waitFor()
+    println b.err.text
+    println b.text
 }
 
