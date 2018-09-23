@@ -2,7 +2,9 @@
 
 source /bootstrap/utils.sh
 umask 000
-set -e
+set -eu
+
+makeDirDeletableForAll $FTP_HOME
 
 app=${BAMBOO_URL}/bamboo
 
