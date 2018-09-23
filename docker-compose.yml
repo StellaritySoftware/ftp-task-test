@@ -32,9 +32,9 @@ services:
       - BAMBOO_HOME=/opt/bamboo/home
       - BAMBOO_URL=http://bamboo:6990
       - FTP_HOME=/opt/ftp
-      - FTP_ULR=ftp://ftp
-      - FTPS_ULR=ftps://ftps
-      - FTPES_ULR=ftpes://ftpes
+      - FTP_URL=ftp://ftp
+      - FTPS_URL=ftps://ftps
+      - FTPES_URL=ftpes://ftpes
     networks:
       mynet:
         aliases:

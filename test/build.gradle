@@ -39,9 +39,6 @@ test{
     systemProperty("user", (System.getProperty("user") != null ? System.getProperty("user") : "admin"))
     systemProperty("password", (System.getProperty("password") != null ? System.getProperty("password") : "admin"))
     systemProperty("geb.env", System.getProperty("geb.env"))
-    systemProperty("ftp_url", System.getProperty("FTP_URL"))
-    systemProperty("ftpes_url", System.getProperty("FTPES_URL"))
-
 
 //    filter{
 //        includeTestsMatching "Test"
