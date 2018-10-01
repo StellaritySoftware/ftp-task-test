@@ -5,15 +5,15 @@ repositories {
 }
 
 dependencies {
-    def groovyVersion = "2.4.15"
-    def gebVersion = "2.1"
-    def seleniumVersion = "3.6.0"
+    def groovyVersion = "2.5.2"
+    def gebVersion = "2.2"
+    def seleniumVersion = "3.14.0"
 
     testCompile "org.codehaus.groovy:groovy-all:$groovyVersion"
 
     // If using Spock, need to depend on geb-spock
     testCompile "org.gebish:geb-spock:$gebVersion"
-    testCompile("org.spockframework:spock-core:1.1-groovy-2.4") {
+    testCompile("org.spockframework:spock-core:1.2-groovy-2.5") {
         exclude group: "org.codehaus.groovy"
     }
 
@@ -32,9 +32,12 @@ task copyResources(type: Copy) {
     dirMode 0777
 }
 
-test{
-
+test {
     dependsOn copyResources
+    outputs.upToDateWhen { false }
+    testLogging {
+        exceptionFormat = 'full'
+    }
 
     systemProperty("user", (System.getProperty("user") != null ? System.getProperty("user") : "admin"))
     systemProperty("password", (System.getProperty("password") != null ? System.getProperty("password") : "admin"))
@@ -59,13 +62,6 @@ test{
     systemProperties "geb.build.reportsDir": "$reportsDir/geb"
 }
 
-
-tasks.withType(Test) {
-    testLogging {
-        exceptionFormat = 'full'
-    }
-}
-
 task license {
     def p = ['curl',
              '-X', 'PUT', '-H', "Content-Type: application/vnd.atl.plugins+json",  '-d',
@@ -77,27 +73,22 @@ task license {
     println p.text
 }
 
-
 task dismissNotification {
     def a = ['curl',
              '-X', 'POST', '-H', "Content-Type: application/json", '-d',
              "{\"username\":\"admin\",\"notificationId\":\"1\",\"snooze\":false}",
              '-u', 'admin:admin', "${System.env.BAMBOO_URL}/bamboo/rest/troubleshooting/1.0/dismissNotification"].execute()
 
-
     println a.waitFor()
     println a.err.text
     println a.text
-
 
     def b = ['curl',
              '-X', 'POST', '-H', "Content-Type: application/json", '-d',
              "{\"username\":\"admin\",\"notificationId\":\"1\",\"snooze\":false}",
              '-u', 'admin:admin', "${System.env.BAMBOO_URL}/bamboo/rest/supportHealthCheck/1.0/dismissNotification"].execute()
 
-
     println b.waitFor()
     println b.err.text
     println b.text
 }
-
