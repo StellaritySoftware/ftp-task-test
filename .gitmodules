@@ -1,0 +1,3 @@
+[submodule "test/common-bamboo-page-objects"]
+	path = test/common-bamboo-page-objects
+	url = https://github.com/StellaritySoftware/common-bamboo-page-objects.git

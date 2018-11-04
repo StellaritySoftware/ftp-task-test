@@ -9,6 +9,8 @@ dependencies {
     def gebVersion = "2.2"
     def seleniumVersion = "3.14.0"
 
+    testCompile project(':common-bamboo-page-objects')
+
     testCompile "org.codehaus.groovy:groovy-all:$groovyVersion"
 
     // If using Spock, need to depend on geb-spock
@@ -46,17 +48,17 @@ test {
 //    filter{
 //        includeTestsMatching "Test"
 //        includeTestsMatching "FtpDownloadEditPasswordTest"
-////      includeTestsMatching "FtpCleanBeforeUploadTest"
-////      includeTestsMatching "FtpDownloadIncludeExcludePatternsTest"
-////      includeTestsMatching "FtpDownloadSubdirectoryTest"
-////      includeTestsMatching "FtpUploadIncludeExcludeTest"
+//     includeTestsMatching "FtpCleanBeforeUploadTest"
+//      includeTestsMatching "FtpDownloadIncludeExcludePatternsTest"
+//      includeTestsMatching "FtpDownloadSubdirectoryTest"
+//      includeTestsMatching "FtpUploadIncludeExcludeTest"
 //        includeTestsMatching "FtpUploadTest"
-////      includeTestsMatching "FtpDownloadTest"
+//      includeTestsMatching "FtpDownloadTest"
 //        includeTestsMatching "FtpDownloadTestSharedCredentials"
 //        includeTestsMatching "FtpDownloadTestInvalidSharedCredentials"
 //        includeTestsMatching "FtpUploadTestSharedCredentials"
 //        includeTestsMatching "FtpUploadTestInvalidSharedCredentials"
-////      includeTestsMatching "FtpDownloadEditTest"
+//      includeTestsMatching "FtpDownloadEditTest"
 //    }
 
     systemProperties "geb.build.reportsDir": "$reportsDir/geb"

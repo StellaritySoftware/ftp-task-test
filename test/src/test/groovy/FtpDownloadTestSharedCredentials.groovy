@@ -1,8 +1,8 @@
 import geb.spock.GebReportingSpec
 import helpers.DirectoryComparator
 import pages.Config
-import pages.LoginPage
-
+import commonpages.LoginPage
+import pages.TaskTypesPage
 
 import java.nio.file.Paths
 
@@ -35,7 +35,7 @@ class FtpDownloadTestSharedCredentials extends GebReportingSpec
 
         def configureTasksPage = createNewPlanConfigurePlanPage.clickConfigurePlanButton()
 
-        def tasks = configureTasksPage.addTask()
+        def tasks = configureTasksPage.addTask(TaskTypesPage)
 
         def ftpDownloadConfiguration = tasks.selectFtpDownload()
         ftpDownloadConfiguration.ftpServerUrl << Config.ftpUrlDownload

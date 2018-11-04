@@ -1,9 +1,8 @@
-
-
+import commonpages.LoginPage
 import geb.spock.GebReportingSpec
 import helpers.DirectoryComparator
 import pages.Config
-import pages.LoginPage
+import pages.TaskTypesPage
 
 import java.nio.file.Paths
 
@@ -23,14 +22,14 @@ class FtpUploadIncludeExcludeTest extends GebReportingSpec
 
         def configureTasksPage = createNewPlanConfigurePlanPage.clickConfigurePlanButton()
 
-        def tasks = configureTasksPage.addTask()
+        def tasks = configureTasksPage.addTask(TaskTypesPage)
         def ftpDownloadConfiguration = tasks.selectFtpDownload()
         ftpDownloadConfiguration.ftpServerUrl << Config.ftpUrlDownload
         ftpDownloadConfiguration.usernameFtp << Config.ftpUser
         ftpDownloadConfiguration.passwordFtp << Config.ftpPassword
         ftpDownloadConfiguration.clickSave()
 
-        tasks = configureTasksPage.addTask()
+        tasks = configureTasksPage.addTask(TaskTypesPage)
         def ftpUploadConfiguration = tasks.selectFtpUpload()
         ftpUploadConfiguration.ftpServerUrl << Config.ftpUrlUpload
         ftpUploadConfiguration.cleanUpRemoteDirectoryBeforeUpload = true
@@ -40,7 +39,7 @@ class FtpUploadIncludeExcludeTest extends GebReportingSpec
         ftpUploadConfiguration.excludePatternField << excludePattern
         ftpUploadConfiguration.clickSave()
 
-        tasks = configureTasksPage.addTask()
+        tasks = configureTasksPage.addTask(TaskTypesPage)
         ftpDownloadConfiguration = tasks.selectFtpDownload()
         ftpDownloadConfiguration.ftpServerUrl << Config.ftpUrlUpload
         ftpDownloadConfiguration.usernameFtp << Config.ftpUser

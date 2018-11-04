@@ -1,7 +1,8 @@
 import geb.spock.GebReportingSpec
 import helpers.DirectoryComparator
 import pages.Config
-import pages.LoginPage
+import commonpages.LoginPage
+import pages.TaskTypesPage
 
 import java.nio.file.Paths
 
@@ -19,14 +20,14 @@ class FtpCleanBeforeUploadTest extends GebReportingSpec
 
         def configureTasksPage = createNewPlanConfigurePlanPage.clickConfigurePlanButton()
 
-        def tasks = configureTasksPage.addTask()
+        TaskTypesPage tasks = configureTasksPage.addTask(TaskTypesPage)
         def ftpDownloadConfiguration = tasks.selectFtpDownload()
         ftpDownloadConfiguration.ftpServerUrl << Config.ftpUrlDownload
         ftpDownloadConfiguration.usernameFtp << Config.ftpUser
         ftpDownloadConfiguration.passwordFtp << Config.ftpPassword
         ftpDownloadConfiguration.clickSave()
 
-        tasks = configureTasksPage.addTask()
+        tasks = configureTasksPage.addTask(TaskTypesPage)
         def ftpUploadConfiguration = tasks.selectFtpUpload()
         ftpUploadConfiguration.cleanUpRemoteDirectoryBeforeUpload = true
         ftpUploadConfiguration.ftpServerUrl << Config.ftpUrlUpload
@@ -34,7 +35,7 @@ class FtpCleanBeforeUploadTest extends GebReportingSpec
         ftpUploadConfiguration.passwordFtp << Config.ftpPassword
         ftpUploadConfiguration.clickSave()
 
-        tasks = configureTasksPage.addTask()
+        tasks = configureTasksPage.addTask(TaskTypesPage)
         ftpUploadConfiguration = tasks.selectFtpUpload()
         ftpUploadConfiguration.cleanUpRemoteDirectoryBeforeUpload = true
         ftpUploadConfiguration.ftpServerUrl << Config.ftpUrlUpload
@@ -44,7 +45,7 @@ class FtpCleanBeforeUploadTest extends GebReportingSpec
         ftpUploadConfiguration.excludePatternField << "**/*.txt"
         ftpUploadConfiguration.clickSave()
 
-        tasks = configureTasksPage.addTask()
+        tasks = configureTasksPage.addTask(TaskTypesPage)
         ftpDownloadConfiguration = tasks.selectFtpDownload()
         ftpDownloadConfiguration.ftpServerUrl << Config.ftpUrlUpload
         ftpDownloadConfiguration.usernameFtp << Config.ftpUser

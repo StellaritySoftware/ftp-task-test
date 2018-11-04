@@ -2,6 +2,8 @@ import geb.spock.GebReportingSpec
 import helpers.DirectoryComparator
 import pages.*
 import spock.lang.Timeout
+import commonpages.LoginPage
+
 
 import java.nio.file.Paths
 
@@ -21,7 +23,7 @@ class FtpDownloadTest extends GebReportingSpec
 
         def configureTasksPage = createNewPlanConfigurePlanPage.clickConfigurePlanButton()
 
-        def tasks = configureTasksPage.addTask()
+        def tasks = configureTasksPage.addTask(TaskTypesPage)
 
         def ftpDownloadConfiguration = tasks.selectFtpDownload()
         ftpDownloadConfiguration.ftpServerUrl << Config.ftpUrlDownload

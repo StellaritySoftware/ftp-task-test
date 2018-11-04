@@ -1,6 +1,9 @@
 import geb.spock.GebReportingSpec
 import pages.Config
-import pages.LoginPage
+import commonpages.LoginPage
+import pages.FTPDownloadConfigurationPage
+import pages.TaskTypesPage
+
 
 class FtpDownloadEditTest extends GebReportingSpec
 {
@@ -17,7 +20,7 @@ class FtpDownloadEditTest extends GebReportingSpec
 
         def configureTasksPage = createNewPlanConfigurePlanPage.clickConfigurePlanButton()
 
-        def tasks = configureTasksPage.addTask()
+        def tasks = configureTasksPage.addTask(TaskTypesPage)
 
         def ftpDownloadConfiguration = tasks.selectFtpDownload()
         ftpDownloadConfiguration.ftpServerUrl << Config.ftpUrlDownload
@@ -29,7 +32,7 @@ class FtpDownloadEditTest extends GebReportingSpec
         ftpDownloadConfiguration.clickSave()
         configureTasksPage.markEnablePlanCheckbox()
 
-        configureTasksPage.selectFTPDownloadtask()
+        configureTasksPage.editTask(FTPDownloadConfigurationPage)
 
         ftpDownloadConfiguration.ftpServerUrl = "ftp://katya.com"
         ftpDownloadConfiguration.usernameFtp = "login"
@@ -41,7 +44,7 @@ class FtpDownloadEditTest extends GebReportingSpec
         ftpDownloadConfiguration.advancedOptionsRetryDelay = "40"
         ftpDownloadConfiguration.clickSave()
 
-        configureTasksPage.selectFTPDownloadtask()
+        configureTasksPage.editTask(FTPDownloadConfigurationPage)
 
         then:
         ftpDownloadConfiguration.ftpServerUrl.value() ==  "ftp://katya.com"

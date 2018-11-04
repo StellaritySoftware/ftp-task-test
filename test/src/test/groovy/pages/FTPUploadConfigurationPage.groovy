@@ -1,5 +1,6 @@
 package pages
 
+import commonpages.CreateNewPlanConfigureTasksPage
 import geb.Page
 
 /**
@@ -7,7 +8,7 @@ import geb.Page
  */
 class FTPUploadConfigurationPage extends Page{
 
-    static url = {Config.context + "/build/admin/create/createPlanTasks.action"}
+    static url = {"/bamboo/build/admin/create/createPlanTasks.action"}
     static at = { ($("#createTask h2").text() == "FTP Upload configuration" ||
                 $("#updateTask h2").text() == "FTP Upload configuration")
     }

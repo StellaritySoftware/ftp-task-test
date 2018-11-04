@@ -1,6 +1,7 @@
 import geb.spock.GebReportingSpec
 import pages.Config
-import pages.LoginPage
+import commonpages.LoginPage
+import pages.TaskTypesPage
 
 
 class FtpUploadTestInvalidSharedCredentials extends GebReportingSpec
@@ -30,14 +31,14 @@ class FtpUploadTestInvalidSharedCredentials extends GebReportingSpec
 
         def configureTasksPage = createNewPlanConfigurePlanPage.clickConfigurePlanButton()
 
-        def tasks = configureTasksPage.addTask()
+        def tasks = configureTasksPage.addTask(TaskTypesPage)
         def ftpDownloadConfiguration = tasks.selectFtpDownload()
         ftpDownloadConfiguration.ftpServerUrl << Config.ftpUrlDownload
         ftpDownloadConfiguration.usernameFtp << Config.ftpUser
         ftpDownloadConfiguration.passwordFtp << Config.ftpPassword
         ftpDownloadConfiguration.clickSave()
 
-        tasks = configureTasksPage.addTask()
+        tasks = configureTasksPage.addTask(TaskTypesPage)
 
         def ftpUploadConfiguration = tasks.selectFtpUpload()
         ftpUploadConfiguration.ftpServerUrl << Config.ftpUrlUpload

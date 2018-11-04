@@ -1,10 +1,12 @@
 import geb.spock.GebReportingSpec
 import helpers.DirectoryComparator
 import pages.Config
-import pages.LoginPage
+import pages.FTPDownloadConfigurationPage
+import pages.TaskTypesPage
 
 import java.nio.file.NoSuchFileException
 import java.nio.file.Paths
+import commonpages.LoginPage
 
 class FtpDownloadEditPasswordTest extends GebReportingSpec
 {
@@ -21,7 +23,7 @@ class FtpDownloadEditPasswordTest extends GebReportingSpec
 
         def configureTasksPage = createNewPlanConfigurePlanPage.clickConfigurePlanButton()
 
-        def tasks = configureTasksPage.addTask()
+        def tasks = configureTasksPage.addTask(TaskTypesPage)
 
         def ftpDownloadConfiguration = tasks.selectFtpDownload()
         ftpDownloadConfiguration.ftpServerUrl << Config.ftpUrlDownload
@@ -45,7 +47,7 @@ class FtpDownloadEditPasswordTest extends GebReportingSpec
         when:
         planBuild.clickEditPalnLink()
         planBuild.clickDefaultJobLink()
-        configureTasksPage.selectFTPDownloadtask()
+        configureTasksPage.editTask(FTPDownloadConfigurationPage)
 
         ftpDownloadConfiguration.changePassword()
         ftpDownloadConfiguration.passwordFtp = Config.ftpPassword
