@@ -1,4 +1,5 @@
 import commonpages.LoginPage
+import configuration.CommonConfig
 import geb.spock.GebReportingSpec
 import helpers.DirectoryComparator
 import pages.Config
@@ -14,7 +15,7 @@ class FtpUploadIncludeExcludeTest extends GebReportingSpec
         def loginPage = browser.to LoginPage
 
         // Download from server
-        def dashboardPage = loginPage.login(Config.user, Config.password)
+        def dashboardPage = loginPage.login(CommonConfig.user, CommonConfig.password)
 
         def createNewPlanConfigurePlanPage = dashboardPage.createNewPlan()
         createNewPlanConfigurePlanPage.setRandomProjectPlanNames()

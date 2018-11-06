@@ -1,3 +1,4 @@
+import configuration.CommonConfig
 import geb.spock.GebReportingSpec
 import helpers.DirectoryComparator
 import pages.Config
@@ -14,7 +15,7 @@ class FtpDownloadIncludeExcludePatternsTest extends GebReportingSpec
         when:
         def loginPage = browser.to LoginPage
 
-        def dashboardPage = loginPage.login(Config.user, Config.password)
+        def dashboardPage = loginPage.login(CommonConfig.user, CommonConfig.password)
 
         def createNewPlanConfigurePlanPage = dashboardPage.createNewPlan()
         createNewPlanConfigurePlanPage.setRandomProjectPlanNames()
@@ -40,7 +41,7 @@ class FtpDownloadIncludeExcludePatternsTest extends GebReportingSpec
         then:
 
         planBuild.waitForSuccessfulHeader()
-        DirectoryComparator.verifyDirs(Paths.get(sample), Config.buildDir)
+        DirectoryComparator.verifyDirs(Paths.get(sample), CommonConfig.buildDir)
 
         where:
         includePattern                | excludePattern       || sample

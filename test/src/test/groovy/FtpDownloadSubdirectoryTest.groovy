@@ -1,3 +1,4 @@
+import configuration.CommonConfig
 import geb.spock.GebReportingSpec
 import helpers.DirectoryComparator
 import pages.Config
@@ -13,7 +14,7 @@ class FtpDownloadSubdirectoryTest extends GebReportingSpec
         when:
         def loginPage = browser.to LoginPage
 
-        def dashboardPage = loginPage.login(Config.user, Config.password)
+        def dashboardPage = loginPage.login(CommonConfig.user, CommonConfig.password)
 
         def createNewPlanConfigurePlanPage = dashboardPage.createNewPlan()
         createNewPlanConfigurePlanPage.setRandomProjectPlanNames()

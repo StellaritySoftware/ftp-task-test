@@ -1,3 +1,4 @@
+import configuration.CommonConfig
 import geb.spock.GebReportingSpec
 import pages.Config
 import commonpages.LoginPage
@@ -12,7 +13,7 @@ class FtpDownloadEditTest extends GebReportingSpec
         when:
         def loginPage = browser.to LoginPage
 
-        def dashboardPage = loginPage.login(Config.user, Config.password)
+        def dashboardPage = loginPage.login(CommonConfig.user, CommonConfig.password)
 
         def createNewPlanConfigurePlanPage = dashboardPage.createNewPlan()
         createNewPlanConfigurePlanPage.setRandomProjectPlanNames()

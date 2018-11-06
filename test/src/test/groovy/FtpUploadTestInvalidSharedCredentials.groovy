@@ -1,3 +1,4 @@
+import configuration.CommonConfig
 import geb.spock.GebReportingSpec
 import pages.Config
 import commonpages.LoginPage
@@ -10,7 +11,7 @@ class FtpUploadTestInvalidSharedCredentials extends GebReportingSpec
     {
         when:
         def loginPage = browser.to LoginPage
-        def dashboardPage = loginPage.login(Config.user, Config.password)
+        def dashboardPage = loginPage.login(CommonConfig.user, CommonConfig.password)
         def userManagement = dashboardPage.openUserManagementPage()
         def sharedCredentials = userManagement.clickOnSharedCredentialLink()
         sharedCredentials.clickOnDropdown()

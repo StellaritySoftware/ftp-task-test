@@ -1,3 +1,4 @@
+import configuration.CommonConfig
 import geb.spock.GebReportingSpec
 import helpers.DirectoryComparator
 import pages.Config
@@ -14,7 +15,7 @@ class FtpDownloadTestInvalidSharedCredentials extends GebReportingSpec
         when:
         def loginPage = browser.to LoginPage
 
-        def dashboardPage = loginPage.login(Config.user, Config.password)
+        def dashboardPage = loginPage.login(CommonConfig.user, CommonConfig.password)
 
         def userManagement = dashboardPage.openUserManagementPage()
 
@@ -54,7 +55,7 @@ class FtpDownloadTestInvalidSharedCredentials extends GebReportingSpec
         planBuild.waitForFailedHeader()
 
         when:
-        DirectoryComparator.verifyDirs(Paths.get(Config.ftpSample), Config.buildDir)
+        DirectoryComparator.verifyDirs(Paths.get(Config.ftpSample), CommonConfig.buildDir)
 
         then:
         thrown(NoSuchFileException)
