@@ -15,6 +15,7 @@ then
 fi
 
 rm /opt/bamboo/* -rf
+rm /opt/amps-standalone-bamboo-${BAMBOO_VERSION}/target/* -rf
 mkdir -p /opt/amps-standalone-bamboo-${BAMBOO_VERSION}/target
 ln -s /opt/bamboo /opt/amps-standalone-bamboo-${BAMBOO_VERSION}/target/bamboo
 
